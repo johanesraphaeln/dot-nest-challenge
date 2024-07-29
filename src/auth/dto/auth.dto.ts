@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsNotEmpty,
   IsOptional,
   IsString,
   IsStrongPassword,
@@ -13,10 +14,16 @@ export class RegisterUserDto {
   @IsOptional()
   name: string;
 
-  @IsStrongPassword()
+  @IsStrongPassword({
+    minLength: 8,
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minUppercase: 1,
+  })
   password: string;
 
-  @IsStrongPassword()
+  @IsNotEmpty()
   confirmPassword: string;
 }
 
@@ -24,6 +31,6 @@ export class LoginUserDto {
   @IsEmail()
   email: string;
 
-  @IsStrongPassword()
+  @IsString()
   password: string;
 }
